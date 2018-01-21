@@ -1,0 +1,24 @@
+#!/bin/bash
+# As long as there is at least one more argument, keep looping
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case "$key" in
+        # This is an arg value type option. Will catch -o value or --output-file value
+        -i|--output-file)
+        shift # past the key and to the value
+        INPUTPATH="$1"
+        ;;
+	-o|--output-file)
+        shift # past the key and to the value
+        OUTPUTPATH="$1"
+        ;;
+        *)
+        # Do whatever you want with extra options
+        echo "Unknown option '$key'"
+        ;;
+    esac
+    # Shift after checking all the cases to get the next option
+    shift
+done
+
+python3.6 "/home/itadmin/MachineLearnig-Project/ensemble.py" $INPUTPATH $OUTPUTPATH
